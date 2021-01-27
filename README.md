@@ -1,11 +1,9 @@
 ![Microservices](https://www.xenonstack.com/images/insights/xenonstack-what-are-microservices.png)
 
 # Microservices
-Após diversas discussões sobre o que seria a vir microserviços. Aqui vai algumas conclusões sobre esse
-padrão arquitetural
-Um microserviço não é somente uma fragmentação de tarefas providas pelo servidor, mas sim um serviço isolado
-que contém sua própria interface pública de comunicação, ou seja, é possível ser conectar diretamente ao 
-serviço e consumir seus serviços.
+Após diversas discussões sobre o que seria a vir microserviços, segue algumas conclusões sobre esse padrão arquitetural:
+um microserviço não é somente uma fragmentação de tarefas providas pelo servidor, mas sim um serviço isolado
+que contém sua própria interface pública de comunicação, ou seja, é possível ser conectar diretamente ao serviço.
 
 # API Gateway
 
@@ -15,12 +13,12 @@ endpoints para a respectiva interface pública que contém o serviço.
 
 # Caso de Uso
 
-Para exemplicar o padrão, foi criado um projeto onde possui uma aplicação Gateway e Serviço.
+Para exemplificar o padrão, foi criado um projeto onde possui uma aplicação Gateway e Serviço.
 
 ## Gateway 
 
-A aplicação Gateway é responsável por centralizar todas as requisições vinda do cliente, e rotear para o endpoint correspondente
-através de leitura de uma arquivo criado pelos serviços.
+A aplicação Gateway é responsável por centralizar todas as requisições providas pelo cliente, e rotear para o endpoint correspondente
+através de leitura de um arquivo criado pelos serviços.
 
 ## Service
 
