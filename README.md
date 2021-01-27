@@ -39,10 +39,14 @@ $ make
 
 
 ## Usando o Gateway
-**./gateway <port>**
+```bash
+./gateway <port>
+```
 
 ## Usando o Service
-**./service <port> <endpoint> <message>**
+```bash
+./service <port> <endpoint> <message>
+```
 
 Iniciamos o gateway e os serviços
 ## Exemplo de uso
