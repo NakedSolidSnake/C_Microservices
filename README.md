@@ -92,4 +92,6 @@ Service on port 1112. : Message: Hello World
 ```
 
 # Conclusão 
-Este material apresenta a conclusão do autor, que no entendimento do mesmo, isso se caracteriza um microserviço.
+Com diversos tutoriais disponíveis na internet poucos ressaltam a necessidade de cada serviço possuir sua própria interface
+de comunicação, dessa forma cada serviço se transforma em um servidor indenpendente, capaz de prover o serviço sem a dependência 
+de outro serviço.
