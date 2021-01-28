@@ -1,4 +1,6 @@
-![Microservices](https://www.xenonstack.com/images/insights/xenonstack-what-are-microservices.png)
+<p align="center">
+  <img src="https://www.xenonstack.com/images/insights/xenonstack-what-are-microservices.png" />
+</p>
 
 # Microservices
 Após diversas discussões sobre o que seria a vir microserviços, segue algumas conclusões sobre esse padrão arquitetural:
