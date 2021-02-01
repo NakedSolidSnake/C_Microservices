@@ -92,6 +92,7 @@ Porém podemos nos conectar diretamente no próprio serviço
 $ nc -u localhost 1112
 Service on port 1112. : Message: Hello World
 ```
+## Representação gráfica do fluxo de comunicação via Gateway e diretamente
 <p align="center">
   <img src="./image/animation.gif" />
 </p>
