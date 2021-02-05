@@ -1,4 +1,3 @@
-// Server side implementation of UDP client-server model 
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <unistd.h> 
@@ -13,7 +12,6 @@
 
 bool create_append(const char *port, const char *service);
 
-// Driver code 
 int main(int argc, char *argv[]) { 
 	int sockfd;
     int port; 
@@ -29,8 +27,6 @@ int main(int argc, char *argv[]) {
     if( create_append(argv[1], argv[2]) == false ) 
         return EXIT_FAILURE;
 
-	
-	// Creating socket file descriptor 
 	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
 		perror("socket creation failed"); 
 		exit(EXIT_FAILURE); 
@@ -42,12 +38,10 @@ int main(int argc, char *argv[]) {
 	memset(&servaddr, 0, sizeof(servaddr)); 
 	memset(&cliaddr, 0, sizeof(cliaddr)); 
 	
-	// Filling server information 
 	servaddr.sin_family = AF_INET; // IPv4 
 	servaddr.sin_addr.s_addr = INADDR_ANY; 
 	servaddr.sin_port = htons(port); 
 	
-	// Bind the socket with the server address 
 	if ( bind(sockfd, (const struct sockaddr *)&servaddr, 
 			sizeof(servaddr)) < 0 ) 
 	{ 
