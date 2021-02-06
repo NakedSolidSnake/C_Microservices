@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE); 
 	} 
 	
-	int len, n; 
+	socklen_t len, n; 
 
     while(1)
     {
@@ -127,7 +127,6 @@ bool route(char *service, char *buffer)
     if(ret){
         //sendto service        
         int sockfd;         
-        char *hello = "Hello from client"; 
         struct sockaddr_in     servaddr; 
     
         // Creating socket file descriptor 
@@ -143,7 +142,8 @@ bool route(char *service, char *buffer)
         servaddr.sin_port = htons(atoi(port)); 
         servaddr.sin_addr.s_addr = INADDR_ANY; 
         
-        int n, len; 
+        int n;
+        socklen_t len; 
         
         sendto(sockfd, (const char *)service, strlen(service), 
             MSG_CONFIRM, (const struct sockaddr *) &servaddr,  

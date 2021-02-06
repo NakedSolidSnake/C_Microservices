@@ -27,7 +27,9 @@ int main(int argc, char *argv[]) {
     if( create_append(argv[1], argv[2]) == false ) 
         return EXIT_FAILURE;
 
-	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
+    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if ( sockfd < 0 ) { 
 		perror("socket creation failed"); 
 		exit(EXIT_FAILURE); 
 	} 
@@ -38,34 +40,29 @@ int main(int argc, char *argv[]) {
 	memset(&servaddr, 0, sizeof(servaddr)); 
 	memset(&cliaddr, 0, sizeof(cliaddr)); 
 	
-	servaddr.sin_family = AF_INET; // IPv4 
+	servaddr.sin_family = AF_INET;
 	servaddr.sin_addr.s_addr = INADDR_ANY; 
 	servaddr.sin_port = htons(port); 
 	
-	if ( bind(sockfd, (const struct sockaddr *)&servaddr, 
-			sizeof(servaddr)) < 0 ) 
+	if ( bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0 ) 
 	{ 
 		perror("bind failed"); 
 		exit(EXIT_FAILURE); 
 	} 
 	
-	int len, n; 
+	socklen_t len, n; 
 
     while(1)
     {
-        len = sizeof(cliaddr); //len is value/resuslt 
+        len = sizeof(cliaddr);
 
-        n = recvfrom(sockfd, (char *)buffer, MAXLINE, 
-                    MSG_WAITALL, ( struct sockaddr *) &cliaddr, 
-                    &len); 
+        n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, ( struct sockaddr *) &cliaddr, &len); 
         buffer[n] = '\0'; 
 
         memset(buffer, 0, MAXLINE);
         snprintf(buffer, MAXLINE, "Service on port %d. : Message: %s\n", port, message);
 
-        sendto(sockfd, (const char *)buffer, strlen(buffer), 
-            MSG_CONFIRM, (const struct sockaddr *) &cliaddr, 
-                len); 
+        sendto(sockfd, (const char *)buffer, strlen(buffer), MSG_CONFIRM, (const struct sockaddr *) &cliaddr, len); 
     }
 	
 	return 0; 

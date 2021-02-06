@@ -12,7 +12,7 @@ add_executable(gateway "")
 
 target_sources(gateway
   PUBLIC 
-  ${CMAKE_CURRENT_LIST_DIR}/src/gateway.c
+  ${CMAKE_CURRENT_LIST_DIR}/src/gateway/gateway.c
   )
 
 install(TARGETS gateway DESTINATION bin)
@@ -22,7 +22,7 @@ add_executable(service "")
 
 target_sources(service
   PUBLIC 
-  ${CMAKE_CURRENT_LIST_DIR}/src/service.c
+  ${CMAKE_CURRENT_LIST_DIR}/src/services/c_service/service.c
   )
 
 install(TARGETS service DESTINATION bin)
