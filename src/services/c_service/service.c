@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
         buffer[n] = '\0'; 
 
         memset(buffer, 0, MAXLINE);
-        snprintf(buffer, MAXLINE, "Service on port %d. : Message: %s\n", port, message);
+        snprintf(buffer, MAXLINE, "%s\n", message);
 
         sendto(sockfd, (const char *)buffer, strlen(buffer), MSG_CONFIRM, (const struct sockaddr *) &cliaddr, len); 
     }

@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
 	"os"
 	"strconv"
-	"strings"
 )
 
 func main() {
@@ -36,14 +34,11 @@ func main() {
 
 	for {
 		message := make([]byte, 20)
-		rlen, remote, err := conn.ReadFromUDP(message[:])
+		_, remote, err := conn.ReadFromUDP(message[:])
 		if err != nil {
 			panic(err)
 		}
 
-		data := strings.TrimSpace(string(message[:rlen]))
-		fmt.Println(data)
-		send_data := "Service " + service + " " + _message
-		conn.WriteToUDP([]byte(send_data), remote)
+		conn.WriteToUDP([]byte(_message), remote)
 	}
 }
