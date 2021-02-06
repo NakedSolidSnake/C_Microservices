@@ -39,7 +39,8 @@ public class UDPServer{
 			InetAddress address = packet.getAddress();
 			int port = packet.getPort();
             packet = new DatagramPacket(buffer, buffer.length, address, port);
-            
+			
+			this.message += "\n";
 			packet.setData(this.message.getBytes(), 0, this.message.length());			
 			udp.send(packet);
 		}			

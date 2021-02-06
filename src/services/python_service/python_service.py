@@ -18,7 +18,7 @@ def main(argv):
 
     while True:
         msg, client = udp.recvfrom(1024)
-        udp.sendto (str(message), client)    
+        udp.sendto (str(message) + "\n", client)    
 
 if __name__ == "__main__":
     main(sys.argv)

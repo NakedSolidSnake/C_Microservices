@@ -39,6 +39,6 @@ func main() {
 			panic(err)
 		}
 
-		conn.WriteToUDP([]byte(_message), remote)
+		conn.WriteToUDP([]byte(_message+"\n"), remote)
 	}
 }

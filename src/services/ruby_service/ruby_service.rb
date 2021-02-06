@@ -17,5 +17,5 @@ server.bind("localhost", port.to_i)
 
 while true
     mesg, addr = server.recvfrom(1024)    
-    server.send message, 0, addr[3], addr[1]
+    server.send message + "\n", 0, addr[3], addr[1]
 end

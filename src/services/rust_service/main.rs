@@ -7,7 +7,7 @@ fn main() -> std::io::Result<()>{
     let args: Vec<String> = env::args().collect();
     let port = &args[1];
     let service = &args[2];
-    let message = &args[3];
+    let message = format!("{}{}", &args[3], "\n");
 
     let _config = format!("{}{}{}", port.to_string(), '\t', service);
     
