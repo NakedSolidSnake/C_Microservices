@@ -11,7 +11,7 @@ fn main() -> std::io::Result<()>{
 
     let _config = format!("{}{}{}", port.to_string(), '\t', service);
     
-    let mut file = File::create("rust.conf").unwrap();
+    let mut file = File::create("conf/rust.conf").unwrap();
 
     file.write(&_config.as_bytes())?;
 

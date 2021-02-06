@@ -7,7 +7,7 @@ port = ARGV[0]
 service_name = ARGV[1]
 message = ARGV[2]
 
-file = File.new("ruby.conf", "w")
+file = File.new("conf/ruby.conf", "w")
 if file 
     file.syswrite(port.to_s + "\t" + service_name.to_s)
 end

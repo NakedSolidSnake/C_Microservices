@@ -19,7 +19,7 @@ func main() {
 	_message := args[3]
 
 	file_content := args[1] + "\t" + service
-	err := ioutil.WriteFile("go.conf", []byte(file_content), 0644)
+	err := ioutil.WriteFile("conf/go.conf", []byte(file_content), 0644)
 	if err != nil {
 		log.Fatal("Cannot create a file")
 	}

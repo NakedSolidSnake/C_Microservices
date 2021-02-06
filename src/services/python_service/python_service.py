@@ -8,7 +8,7 @@ def main(argv):
     service_name = sys.argv[2]
     message = sys.argv[3]
 
-    file = open("python.conf", "w")
+    file = open("conf/python.conf", "w")
     file.write(port + "\t" + service_name)
     file.close()
 

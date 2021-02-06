@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
 
 bool create_append(const char *port, const char *service)
 {
-    FILE *file = fopen("c.conf", "w");
+    FILE *file = fopen("conf/c.conf", "w");
     if(!file)
         return false;
 

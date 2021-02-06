@@ -6,14 +6,15 @@ DIRECTORY=output
 echo Creating output directory
 if [ -d "$DIRECTORY" ]; then
     rm -rf output/*
+    mkdir output/conf
 else
-    mkdir output
+    mkdir -p output/conf
 fi
 
 
 echo compiling Gateway...
 cd $WORKDIR/src/gateway
-gcc -o gateway gateway.c
+gcc -g -o gateway gateway.c
 mv gateway ../../output
 cd -
 
