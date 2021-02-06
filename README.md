@@ -6,6 +6,10 @@
 Após diversas discussões sobre o que seria a vir microserviços, segue algumas conclusões sobre esse padrão arquitetural:
 um microserviço não é somente uma fragmentação de tarefas providas pelo servidor, mas sim um serviço isolado
 que contém sua própria interface pública de comunicação, ou seja, é possível ser conectar diretamente ao serviço.
+Microservices possui uma grande vantagem em relação aos outros padrões (Monolítico e SOA), permite que os serviços
+sejam implementados de forma heterogênea, ou seja, cada serviço pode ser implementado com uma tecnologia distinta(C, Python, Rust),
+como será visto no caso de uso, porém também traz consigo uma desvantagem, que é a complexidade empregada. Por serem independentes
+entre si, o debug da aplicação fica difícil de ser realizado, e exige conhecimento das tecnologias usadas.
 
 # API Gateway
 
@@ -15,7 +19,13 @@ endpoints para a respectiva interface pública que contém o serviço.
 
 # Caso de Uso
 
-Para exemplificar o padrão, foi criado um projeto onde possui uma aplicação Gateway e Serviço.
+Para exemplificar o padrão, foi criado um projeto onde possui uma aplicação Gateway e 6 serviços sendo eles implementados em C, 
+Java, Python, Rust, Ruby e Go.
+
+## Representação Gráfica da aplicação
+<p align="center">
+  <img src="https://drive.google.com/file/d/1QeRpBEp8sn6WoqxcopnQW7--LMIaI-3X/view?usp=sharing" />
+</p>
 
 ## Gateway 
 
@@ -29,12 +39,9 @@ registra sua porta e seu endpoint em um arquivo informando que está disponível
 
 # Uso
 ## Build
+Para realizar o build execute o script:
 ```bash
-$ cd c_microservices
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
+./compile
 ```
 
 
@@ -46,51 +53,65 @@ $ make
 ## Usando o Service
 ```bash
 ./service <port> <endpoint> <message>
+java service <port> <endpoint> <message>
 ```
 
 Iniciamos o gateway e os serviços
 ## Exemplo de uso
 ```bash
-./gateway 1111 &
-./service 1112 /service1 'Hello World'&
-./service 1113 /service2 'Hallo Welt'&
-./service 1114 /service3 'salve Orbis Terrarum'&
-./service 1115 /service4 'Bonjour le monde'&
+./c_service 1111 /c_service "C Service Replying: Hello World!"&
+./go_service 1112 /go_service "Go Service Replying: Hallo Welt"&
+./python_service.py 1113 /python_service "Python Service Replying: salve Orbis Terrarum"&
+./ruby_service.rb 1114 /ruby_service "Ruby Service Replying: Bonjour le monde"&
+./rust_service 1115 /rust_service "Rust Service Replying: Ciao mondo"&
+java UDPServer 1116 /java_service "Java Service Replying: Olá Mundo"&
+./gateway 1110&
 ```
 
 Com o netstat podemos ver os serviços funcionando
 
 ```bash
-$ netstat -lvpu | egrep "gateway|service" 
+$ netstat -lvpu | egrep "gateway|_serv|java|ruby|python" 
 
-udp        0      0 0.0.0.0:1111            0.0.0.0:*                           25144/./gateway     
-udp        0      0 0.0.0.0:1112            0.0.0.0:*                           25365/./service     
-udp        0      0 0.0.0.0:1113            0.0.0.0:*                           25440/./service     
-udp        0      0 0.0.0.0:1114            0.0.0.0:*                           25485/./service     
-udp        0      0 0.0.0.0:1115            0.0.0.0:*                           25559/./service  
+udp        0      0 0.0.0.0:1110            0.0.0.0:*                           15797/./gateway     
+udp        0      0 0.0.0.0:1111            0.0.0.0:*                           15751/./c_service   
+udp        0      0 0.0.0.0:1113            0.0.0.0:*                           15753/python        
+udp        0      0 localhost:1114          0.0.0.0:*                           15754/ruby          
+udp        0      0 localhost:1115          0.0.0.0:*                           15755/./rust_servic 
+udp6       0      0 [::]:1112               [::]:*                              15752/./go_service  
+udp6       0      0 [::]:1116               [::]:*                              15756/java 
 ```
 
 Conectamos no gateway e realizamos as requisições
 
 ```bash
-$ nc -u localhost 1111
+$ nc -u localhost 1110
 
-/service1
-Service on port 1112. : Message: Hello World
-/service2
-Service on port 1113. : Message: Hallo Welt
-/service3
-Service on port 1114. : Message: salve Orbis Terrarum
-/service4
-Service on port 1115. : Message: Bonjour le monde
+/c_service
+C Service Replying: Hello World!
+
+/go_service
+Go Service Replying: Hallo Welt
+
+/python_service
+Python Service Replying: salve Orbis Terrarum
+
+/ruby_service
+Ruby Service Replying: Bonjour le monde
+
+/rust_service
+Rust Service Replying: Ciao mondo
+
+/java_service
+Java Service Replying: Olá Mundo
 
 ```
 
 Porém podemos nos conectar diretamente no próprio serviço
 
 ```bash
-$ nc -u localhost 1112
-Service on port 1112. : Message: Hello World
+$ nc -u localhost 1111
+C Service Replying: Hello World!
 ```
 ## Representação gráfica do fluxo de comunicação via Gateway e diretamente
 <p align="center">
