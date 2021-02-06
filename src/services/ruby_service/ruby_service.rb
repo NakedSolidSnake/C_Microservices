@@ -16,8 +16,6 @@ server = UDPSocket.new
 server.bind("localhost", port.to_i)
 
 while true
-    mesg, addr = server.recvfrom(1024)
-    puts mesg
-    puts addr    
+    mesg, addr = server.recvfrom(1024)    
     server.send message, 0, addr[3], addr[1]
 end
