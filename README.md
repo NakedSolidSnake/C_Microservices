@@ -24,7 +24,7 @@ Java, Python, Rust, Ruby e Go.
 
 ## Representação Gráfica da aplicação
 <p align="center">
-  <img src="https://drive.google.com/file/d/1QeRpBEp8sn6WoqxcopnQW7--LMIaI-3X/view?usp=sharing" />
+  <img src="https://drive.google.com/file/d/1QeRpBEp8sn6WoqxcopnQW7--LMIaI-3X/view" />
 </p>
 
 ## Gateway 
