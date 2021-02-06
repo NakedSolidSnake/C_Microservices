@@ -9,9 +9,9 @@ fn main() -> std::io::Result<()>{
     let service = &args[2];
     let message = &args[3];
 
-    let _config = format!("{}{}{}", service, '\t', port.to_string());
+    let _config = format!("{}{}{}", port.to_string(), '\t', service);
     
-    let mut file = File::create("service_rust").unwrap();
+    let mut file = File::create("rust.conf").unwrap();
 
     file.write(&_config.as_bytes())?;
 

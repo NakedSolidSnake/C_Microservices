@@ -25,8 +25,8 @@ public class UDPServer{
 	}
 	
 	private void createFile(Integer port, String service) throws IOException {
-		FileWriter file = new FileWriter("java_service");
-		file.write(this.service + "\t" + this.port);
+		FileWriter file = new FileWriter("java.conf");
+		file.write(this.port + "\t" + this.service);
 		file.close();
 	}
 	

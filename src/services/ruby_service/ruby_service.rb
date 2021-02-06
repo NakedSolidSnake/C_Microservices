@@ -7,9 +7,9 @@ port = ARGV[0]
 service_name = ARGV[1]
 message = ARGV[2]
 
-file = File.new("ruby_service", "w")
+file = File.new("ruby.conf", "w")
 if file 
-    file.syswrite(service_name.to_s + "\t" + port.to_s)
+    file.syswrite(port.to_s + "\t" + service_name.to_s)
 end
 
 server = UDPSocket.new

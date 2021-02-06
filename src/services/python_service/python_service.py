@@ -8,8 +8,8 @@ def main(argv):
     service_name = sys.argv[2]
     message = sys.argv[3]
 
-    file = open("." + service_name, "w")
-    file.write(service_name + "\t" + port)
+    file = open("python.conf", "w")
+    file.write(port + "\t" + service_name)
     file.close()
 
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

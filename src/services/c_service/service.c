@@ -70,11 +70,11 @@ int main(int argc, char *argv[]) {
 
 bool create_append(const char *port, const char *service)
 {
-    FILE *file = fopen("mapping", "a+");
+    FILE *file = fopen("c.conf", "w");
     if(!file)
         return false;
 
-    fprintf(file, "\n%s\t%s", port, service);
+    fprintf(file, "%s\t%s", port, service);
     fclose(file);
     return true;
 }
