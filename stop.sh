@@ -17,3 +17,6 @@ kill -9 `pgrep rust_service`
 
 echo Killing java_service...
 kill -9 `pgrep java`
+
+echo Killing gateway...
+kill -9 `pgrep gateway`
