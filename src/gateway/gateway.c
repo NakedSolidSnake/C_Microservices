@@ -1,4 +1,3 @@
-// Server side implementation of UDP client-server model
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -10,17 +9,21 @@
 #include <stdbool.h>
 #include <dirent.h>
 
-#define MAXLINE 1024
+#define MAXLINE         1024
+#define FILEPATH_LEN    300
+#define PATH_LEN        6
+#define SERVICENAME_LEN 20
+#define SERVICE_AMOUNT  10
 
 typedef struct 
 {
-    char port[6];
-    char service[20];
+    char port[PATH_LEN];
+    char service[SERVICENAME_LEN];
 } Service;
 
 typedef struct
 {
-    Service services[10];
+    Service services[SERVICE_AMOUNT];
     int amount;
 } ServiceMapping;
 
@@ -58,12 +61,10 @@ int main(int argc, char *argv[])
     memset(&servaddr, 0, sizeof(servaddr));
     memset(&cliaddr, 0, sizeof(cliaddr));
 
-    // Filling server information
-    servaddr.sin_family = AF_INET; // IPv4
+    servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(port);
 
-    // Bind the socket with the server address
     if (bind(sockfd, (const struct sockaddr *)&servaddr,
              sizeof(servaddr)) < 0)
     {
@@ -76,7 +77,7 @@ int main(int argc, char *argv[])
     while (1)
     {
         memset(buffer, 0, sizeof(buffer));
-        len = sizeof(cliaddr); //len is value/resuslt
+        len = sizeof(cliaddr);
 
         n = recvfrom(sockfd, (char *)buffer, MAXLINE,
                      MSG_WAITALL, (struct sockaddr *)&cliaddr,
@@ -103,7 +104,7 @@ bool getService(ServiceMapping *service_mapping, const char *service, char *port
         Service *s = &service_mapping->services[i];
         if(!strcmp(service, s->service))
         {
-            strncpy(port, s->port, 6);
+            strncpy(port, s->port, PATH_LEN);
             ret = true;
             break;
         }
@@ -115,17 +116,16 @@ bool getService(ServiceMapping *service_mapping, const char *service, char *port
 int ReadLine(char *buff, int size, FILE *fp)
 {
     buff[0] = '\0';
-    buff[size - 1] = '\0'; /* mark end of buffer */
+    buff[size - 1] = '\0';
     char *tmp;
 
     if (fgets(buff, size, fp) == NULL)
     {
-        *buff = '\0'; /* EOF */
+        *buff = '\0';
         return false;
     }
     else
     {
-        /* remove newline */
         if ((tmp = strrchr(buff, '\n')) != NULL)
         {
             *tmp = '\0';
@@ -137,15 +137,13 @@ int ReadLine(char *buff, int size, FILE *fp)
 bool route(ServiceMapping *service_mapping, char *service, char *buffer)
 {
     bool ret;
-    char port[6] = {0};
+    char port[PATH_LEN] = {0};
     ret = getService(service_mapping, service, port);
     if (ret)
     {
-        //sendto service
         int sockfd;
         struct sockaddr_in servaddr;
 
-        // Creating socket file descriptor
         if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
         {
             perror("socket creation failed");
@@ -154,7 +152,6 @@ bool route(ServiceMapping *service_mapping, char *service, char *buffer)
 
         memset(&servaddr, 0, sizeof(servaddr));
 
-        // Filling server information
         servaddr.sin_family = AF_INET;
         servaddr.sin_port = htons(atoi(port));
         servaddr.sin_addr.s_addr = INADDR_ANY;
@@ -185,20 +182,20 @@ bool loadServices(ServiceMapping *service_mapping)
     if (dr == NULL)
     {
         printf("Could not open current directory");
-        return 0;
+        return false;
     }
 
     while ((de = readdir(dr)) != NULL)
     {
         if (!strcmp(strchr(de->d_name, '.'), ".conf"))
         {
-            char filepath[40];
-            char line[40];
-            snprintf(filepath, 40, "conf/%s", de->d_name);
+            char filepath[FILEPATH_LEN];
+            char line[255];
+            snprintf(filepath, FILEPATH_LEN, "conf/%s", de->d_name);
             FILE *file = fopen(filepath, "r");
             if(file)
             {
-               while (ReadLine(line, 1024, file))
+               while (ReadLine(line, MAXLINE, file))
                 {
                     Service *s = &service_mapping->services[service_mapping->amount];
                     sscanf(line, "%s\t%s", s->port, s->service);
@@ -207,11 +204,11 @@ bool loadServices(ServiceMapping *service_mapping)
                 fclose(file);
             }
             else 
+            {
                 printf("It was not possible to open file.\n");
-
-             
+            }
         }
     }
     closedir(dr);
-    return 0;
+    return true;
 }
