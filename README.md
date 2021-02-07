@@ -60,11 +60,23 @@ Iniciamos o gateway e os serviços
 ## Exemplo de uso
 ```bash
 ./c_service 1111 /c_service "C Service Replying: Hello World!"&
+```
+```bash
 ./go_service 1112 /go_service "Go Service Replying: Hallo Welt"&
+```
+```bash
 ./python_service.py 1113 /python_service "Python Service Replying: salve Orbis Terrarum"&
+```
+```bash
 ./ruby_service.rb 1114 /ruby_service "Ruby Service Replying: Bonjour le monde"&
+```
+```bash
 ./rust_service 1115 /rust_service "Rust Service Replying: Ciao mondo"&
+```
+```bash
 java UDPServer 1116 /java_service "Java Service Replying: Olá Mundo"&
+```
+```bash
 ./gateway 1110&
 ```
 
