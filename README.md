@@ -3,10 +3,13 @@
 </p>
 
 # Microservices
+Este artigo descreve como os serviços presente em uma arquitetura de microserviços pode ser acessada através de um padrão conhecido como API Gateway, e também no acesso ao serviço em si.
+
+# Introdução
 Após diversas discussões sobre o que seria a vir microserviços, segue algumas conclusões sobre esse padrão arquitetural:
 um microserviço não é somente uma fragmentação de tarefas providas pelo servidor, mas sim um serviço isolado
 que contém sua própria interface pública de comunicação, ou seja, é possível ser conectar diretamente ao serviço.
-Microservices possui uma grande vantagem em relação aos outros padrões (Monolítico e SOA), permite que os serviços
+Microservices possui uma grande vantagem em relação aos outros padrões (Monolítico e SOA), porque permite que os serviços
 sejam implementados de forma heterogênea, ou seja, cada serviço pode ser implementado com uma tecnologia distinta(C, Python, Rust),
 como será visto no caso de uso, porém também traz consigo uma desvantagem, que é a complexidade empregada. Por serem independentes
 entre si, o debug da aplicação fica difícil de ser realizado, e exige conhecimento das tecnologias usadas.
